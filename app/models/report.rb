@@ -5,21 +5,60 @@ class Report < ApplicationRecord
 		return [] if Report.count == 0
 
 		self.client_numbers.each do |client_number|
-			actions = where("client_number = #{client_number}")
-			prev = nil;
-			actions.each do |action|
-				if !prev
-					prev = action 
+			actions = where("client_number = ?", client_number)
+			flags = self.inspect_actions(actions)
+			flagged.concat(flags) unless flags.count == 0
+		end
+		
+		flagged
+	end
+
+	def self.inspect_actions(actions)
+		date_bubbles = []
+
+		dates = actions.pluck(:date, :nis_amount, :record_action_number)
+
+		while (dates.count > 0) do 
+			prev = nil
+			bubble = []
+
+			dates.each do |date|
+				if !prev 
+					prev = date 
 					next
 				end
-				if (action.date - prev.date) <= 259200
-					flagged << action.record_action_number
+
+				if (date[0] - prev[0]).abs <= 259200
+					bubble.push(prev) if bubble.count == 0
+					bubble.push(date)
 				end
-				prev = action
+			end
+
+			date_bubbles.push(bubble) if bubble.count > 0
+			dates.shift
+		end
+
+		flags = []
+		date_bubbles.each do |bubble|
+			if bubble.reduce(0){|r, n| r += n[1]} > 50000
+				flags.concat(bubble.map{|a| a[2]})
 			end
 		end
 
-		flagged
+		flags
+		# prev = nil;
+		# actions.each do |action|
+		# 	if !prev
+		# 		prev = action 
+		# 		next
+		# 	end
+
+		# 	if (((action.date - prev.date) <= 259200) && action.nis_amount + prev.nis_amount > 50000)
+		# 		puts "PING"
+		# 		flagged.push(action.record_action_number)
+		# 	end
+		# 	prev = action
+		# end
 	end
 
 	def self.client_numbers
@@ -35,6 +74,5 @@ class Report < ApplicationRecord
 		  Report.last.update(date: Report.last.date.change(hour: t.hour, min: t.min, sec: t.sec)) unless !t
 		end
 	end
-
 
 end

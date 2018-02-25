@@ -6,8 +6,6 @@ class CreateReports < ActiveRecord::Migration[5.1]
       t.integer :record_action_number
       t.integer :client_number
       t.float :nis_amount
-
-      t.timestamps
     end
   end
 end
