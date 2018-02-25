@@ -2,14 +2,14 @@
 
 <div id="flagged">
 	<h3>Flagged Actions</h3>
-	<% if @flagged.count == 0 %>
+	<% if !@flagged %>
 		<p class="mute">upload file to begin</p>
-	<% end %>
-	<% @flagged.each do |action| %>
-		<span id="flag"><%= action %></span>
-		<br>
-	<% end %>
-	<% if @flagged.count > 0 %>
+	<% else %>
+		<% @flagged.each do |action| %>
+			<span id="flag"><%= action %></span>
+			<br>
+		<% end %>
+		<p class="green"><%= @flagged.count == 0 ? "Looks good! No red flags." : "" %></p>
 		<br>
 		<%= button_to 'clear', clear_path %>
 	<% end %>

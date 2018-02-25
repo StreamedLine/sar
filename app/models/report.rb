@@ -2,7 +2,7 @@ class Report < ApplicationRecord
 
 	def self.flag
 		flagged = []
-		return [] if Report.count == 0
+		return false if Report.count == 0 
 
 		self.client_numbers.each do |client_number|
 			actions = where("client_number = ?", client_number)
@@ -53,6 +53,7 @@ class Report < ApplicationRecord
 	end
 
 	def self.upload(file)
+		return "No file selected" if !file
 		doc = SimpleXlsxReader.open(file.tempfile)
 		doc.sheets[0].rows.each do |row|
 			next if row[0] == 'Date'
@@ -60,6 +61,7 @@ class Report < ApplicationRecord
 			t = Report.last.time
 		  Report.last.update(date: Report.last.date.change(hour: t.hour, min: t.min, sec: t.sec)) unless !t
 		end
+		"File uploaded successfully"
 	end
 
 end
