@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2018-02-24 19:17:36
+  time: 2018-02-24 19:17:36
+  record_action_number: 1
+  client_number: 1
+  nis_amount: 1
+
+two:
+  date: 2018-02-24 19:17:36
+  time: 2018-02-24 19:17:36
+  record_action_number: 1
+  client_number: 1
+  nis_amount: 1

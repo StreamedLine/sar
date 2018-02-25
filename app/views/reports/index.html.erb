@@ -1,0 +1,19 @@
+<h1>Reports Flagger</h1>
+
+<div id="flagged">
+	<% if @flagged.count > 0 %>
+		<h3>Flagged Actions</h3>
+	<% end %>
+	<% @flagged.each do |action| %>
+		<%= action %>
+		<br>
+	<% end %>
+</div>
+
+<h3>Upload File Here</h3>
+Currently only accepts xlsx files..
+
+<%= form_tag reports_path, multipart: true  do %>
+	<%= file_field_tag :file %>
+	<%= submit_tag "Begin Flagging" %>
+<% end %>
