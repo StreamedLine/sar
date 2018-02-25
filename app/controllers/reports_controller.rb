@@ -8,4 +8,9 @@ class ReportsController < ApplicationController
   	Report.upload(params[:file])
   	redirect_to '/'
   end
+
+  def clear
+  	Report.delete_all
+  	redirect_to '/'
+  end
 end
