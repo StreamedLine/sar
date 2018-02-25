@@ -11,7 +11,7 @@ default: &default
 
 development:
   adapter: postgresql
-  database: db/production_db.pg
+  database: db/production_db
   pool: 5
   timeout: 5000
 
@@ -24,6 +24,6 @@ test:
 
 production:
   adapter: postgresql
-  database: db/production_db.pg
+  database: db/production_db
   pool: 5
   timeout: 5000

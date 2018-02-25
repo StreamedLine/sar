@@ -126,12 +126,6 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    roo (2.7.1)
-      nokogiri (~> 1)
-      rubyzip (~> 1.1, < 2.0.0)
-    rubyXL (3.3.28)
-      nokogiri (>= 1.4.4)
-      rubyzip (>= 1.1.6)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.5)
@@ -198,8 +192,6 @@ DEPENDENCIES
   pry
   puma (~> 3.7)
   rails (~> 5.1.5)
-  roo
-  rubyXL
   sass-rails (~> 5.0)
   selenium-webdriver
   simple_xlsx_reader
