@@ -2,7 +2,7 @@ class Report < ApplicationRecord
 
 	def self.flag
 		flagged = []
-
+		return [] if Report.count == 0
 		self.client_numbers.each do |client_number|
 			actions = where("reports.client_number = #{client_number}")
 			prev = nil;
