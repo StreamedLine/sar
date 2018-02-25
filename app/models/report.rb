@@ -46,19 +46,6 @@ class Report < ApplicationRecord
 		end
 
 		flags
-		# prev = nil;
-		# actions.each do |action|
-		# 	if !prev
-		# 		prev = action 
-		# 		next
-		# 	end
-
-		# 	if (((action.date - prev.date) <= 259200) && action.nis_amount + prev.nis_amount > 50000)
-		# 		puts "PING"
-		# 		flagged.push(action.record_action_number)
-		# 	end
-		# 	prev = action
-		# end
 	end
 
 	def self.client_numbers
