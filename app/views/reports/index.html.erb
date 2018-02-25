@@ -1,8 +1,11 @@
 <h1>Reports Flagger</h1>
 
 <div id="flagged">
+	<h3>Flagged Actions</h3>
 	<% if @flagged.count > 0 %>
-		<h3>Flagged Actions</h3>
+		<p class="mute">flags will be deleted when new file is uploaded</p>
+	<% else %>
+		<p class="mute">upload file to begin</p>
 	<% end %>
 	<% @flagged.each do |action| %>
 		<span id="flag"><%= action %></span>
@@ -11,7 +14,7 @@
 </div>
 
 <h3>Upload File Here</h3>
-Currently only accepts xlsx files..
+Currently only accepts xlsx files.
 
 <%= form_tag reports_path, multipart: true  do %>
 	<%= file_field_tag :file %>
