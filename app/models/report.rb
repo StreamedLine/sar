@@ -40,7 +40,7 @@ class Report < ApplicationRecord
 
 		flags = []
 		date_bubbles.each do |bubble|
-			if bubble.reduce(0){|r, n| r += n[1]} > 50000
+			if bubble.reduce(0){|r, n| r += n[1]} >= 50000
 				flags.concat(bubble.map{|a| a[2]})
 			end
 		end
