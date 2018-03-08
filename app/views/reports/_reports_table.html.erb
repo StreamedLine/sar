@@ -9,7 +9,7 @@
 
 	<% flagged.each_with_index do |clients, j| %>
 		<% clients.each_with_index do |flags_bubble, i| %>
-			<tr><td><%= flags_bubble[0][0] %> </td><td>Action group: <%= i + 1 %></td><td></td><td></td><td></td></tr>
+			<tr class="grey small"><td> </td><td><%= flags_bubble[0][0] %>:<%= i + 1 %></td><td></td><td></td><td></td></tr>
 			<% flags_bubble.each do |row| %>
 				<tr>
 					<td><%= row[0] %></td>
