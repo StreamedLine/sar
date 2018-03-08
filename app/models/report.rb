@@ -33,10 +33,6 @@ class Report < ApplicationRecord
 				end
 			end
 
-			if bubble.count == 0 && dates[0][2] >= 50000
-				bubble.push(dates[0])
-			end
-
 			date_bubbles.push(bubble) if bubble.count > 0
 			dates.shift
 		end
