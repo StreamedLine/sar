@@ -1,0 +1,19 @@
+<table>
+	<tr>
+		<th>Client</th>
+		<th>Date</th>
+		<th>NIS</th>
+		<th>Action</th>
+		<th>Total</th>
+	</tr>
+
+	<% flagged.each do |row| %>
+		<tr>
+			<td><%= row[0] %></td>
+			<td><%= row[1] %></td>
+			<td><%= row[2] %></td>
+			<td class="action"><%= row[3] %></td>
+			<td class="<%= row[4] ? 'blue' : '' %>"><%= row[4] %></td>
+		</tr>
+	<% end %>
+</table>

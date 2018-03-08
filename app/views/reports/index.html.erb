@@ -5,10 +5,7 @@
 	<% if !@flagged %>
 		<p class="mute">upload file to begin</p>
 	<% else %>
-		<% @flagged.each do |action| %>
-			<span id="flag"><%= action %></span>
-			<br>
-		<% end %>
+	<%= render partial: 'reports_table', locals: {:flagged => @flagged} %>
 		<p class="green"><%= @flagged.count == 0 ? "Looks good! No red flags." : "" %></p>
 		<br>
 		<%= button_to 'clear', clear_path %>

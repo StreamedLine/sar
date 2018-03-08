@@ -1,5 +1,4 @@
 class Report < ApplicationRecord
-
 	def self.flag
 		flagged = []
 		return false if Report.count == 0 
@@ -16,7 +15,7 @@ class Report < ApplicationRecord
 	def self.inspect_actions(actions)
 		date_bubbles = []
 
-		dates = actions.pluck(:date, :nis_amount, :record_action_number)
+		dates = actions.pluck(:client_number, :date, :nis_amount, :record_action_number)
 
 		while (dates.count > 0) do 
 			prev = nil
@@ -28,7 +27,7 @@ class Report < ApplicationRecord
 					next
 				end
 
-				if (date[0] - prev[0]).abs <= 259200
+				if (date[1] - prev[1]).abs <= 259200
 					bubble.push(prev) if bubble.count == 0
 					bubble.push(date)
 				end
@@ -40,8 +39,10 @@ class Report < ApplicationRecord
 
 		flags = []
 		date_bubbles.each do |bubble|
-			if bubble.reduce(0){|r, n| r += n[1]} >= 50000
-				flags.concat(bubble.map{|a| a[2]})
+			total_nis_amount = bubble.reduce(0){|r, n| r += n[2]}
+			if total_nis_amount >= 50000
+				bubble.last.push(total_nis_amount)
+				flags.concat( bubble )
 			end
 		end
 
