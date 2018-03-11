@@ -20,7 +20,7 @@ class Report < ApplicationRecord
 		date_bubbles.each do |bubble|
 			total_nis_amount = bubble.reduce(0){|r, n| r += n[2]}
 			if total_nis_amount >= 50000 && !date_bubbles.any?{|b| bubble != b && bubble - b == []}
-				bubble = bubble.map{|b| b.map{|n| n.clone}}
+				bubble = bubble.map{|b| b.clone}
 				bubble.reduce(0){|r, n| n[4] = r + n[2]}
 				flags.concat( [bubble] )
 			end
