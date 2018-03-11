@@ -13,10 +13,29 @@ class Report < ApplicationRecord
 	end
 
 	def self.inspect_actions(actions)
-		date_bubbles = []
-
 		dates = actions.order('date asc').pluck(:client_number, :date, :nis_amount, :record_action_number)
+		date_bubbles = self.bubble_dates(dates)
 
+		flags = []
+		date_bubbles.each do |bubble|
+			total_nis_amount = bubble.reduce(0){|r, n| r += n[2]}
+			if total_nis_amount >= 50000 && !date_bubbles.any?{|b| bubble != b && bubble - b == []}
+				bubble = bubble.map{|b| b.clone.map{|n| n.clone}}
+				bubble.reduce(0){|r, n| n[4] = r + n[2]}
+				flags.concat( [bubble] )
+			end
+		end
+		flags
+	end
+
+	def self.filter_bubbles(bubbles)
+		bubbles.select do |bubble|
+			bubbles.any?{|b| bubble != b && bubble - b != []}
+		end
+	end
+
+	def self.bubble_dates(dates)
+		date_bubbles = []
 		while (dates.count > 0) do 
 			prev = nil
 			bubble = []
@@ -36,16 +55,7 @@ class Report < ApplicationRecord
 			date_bubbles.push(bubble) if bubble.count > 0
 			dates.shift
 		end
-
-		flags = []
-		date_bubbles.each do |bubble|
-			total_nis_amount = bubble.reduce(0){|r, n| r += n[2]; n.push(r); r}
-			if total_nis_amount >= 50000 && !date_bubbles.any?{|b| bubble != b && bubble - b == []}
-				flags.concat( [bubble] )
-			end
-		end
-
-		flags
+		date_bubbles
 	end
 
 	def self.client_numbers

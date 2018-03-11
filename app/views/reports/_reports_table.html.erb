@@ -7,16 +7,16 @@
 		<th>Total</th>
 	</tr>
 
-	<% flagged.each_with_index do |clients, j| %>
-		<% clients.each_with_index do |flags_bubble, i| %>
-			<tr class="grey small"><td> </td><td><%= flags_bubble[0][0] %>:<%= i + 1 %></td><td></td><td></td><td></td></tr>
-			<% flags_bubble.each do |row| %>
+	<% flagged.each_with_index do |clients| %>
+		<% clients.each_with_index do |flags_bubbles, i| %>
+			<tr class="grey small"><td> </td><td><%= flags_bubbles[0][0] %>:<%= i + 1 %></td><td></td><td></td><td></td></tr>
+			<% flags_bubbles.each do |row| %>
 				<tr>
 					<td><%= row[0] %></td>
 					<td><%= row[1] %></td>
 					<td><%= row[2] %></td>
 					<td class="action"><%= row[3] %></td>
-					<td class="<%= row[4] ? 'blue' : '' %>"><%= row[4] %></td>
+					<td class=<%= row[4] ? 'blue' : '' %>><%= row[4] %></td>
 				</tr>
 			<% end %>	
 		<% end %>
